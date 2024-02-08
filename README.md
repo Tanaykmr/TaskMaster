@@ -7,9 +7,10 @@ mkdir config
 cd config
 touch .env.local
 ```
-2. In .env.local, add a variable named ```JWT_SECRET``` and enter a string of your choice.
-3. while in server, install all dependencies using ```npm i```
-4. Your backend is now ready, to set up the frontend, navigate to client and create a file named ```.env````
+2. In .env.local, add 2 variables named ```JWT_SECRET```(enter a string of your choice) and ```MONGOOSE_URL``` and add your MongoDB connection string here.
+3. 
+4. while in server, install all dependencies using ```npm i```
+5. Your backend is now ready, to set up the frontend, navigate to client and create a file named ```.env````
 ```
 cd client
 touch .env
