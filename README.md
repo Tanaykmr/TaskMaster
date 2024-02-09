@@ -15,7 +15,7 @@ touch .env.local
 cd client
 touch .env
 ```
-5. in .env, create a variable named ````VITE_BASE_URL``` and set it's value as ```http://localhost:3000```
+5. in .env, create a variable named ```VITE_BASE_URL``` and set it's value as ```http://localhost:3000```
 6. Back in client, execute ```npm i``` to install all dependencies
 7. Execute ```npm run dev``` in client to start the frontend
 8. Execute ```tsc``` in server to compile all the typescript files
