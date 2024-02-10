@@ -14,6 +14,11 @@ if (!secret) {
   process.exit(1);
 }
 
+interface LoginRequest {
+  username: string,
+  password: string
+}
+
 router.get("/me", authenticatejwt, async (req, res) => {
   const idHeader = req.headers.userId;
   if (!idHeader) {
@@ -29,7 +34,7 @@ router.get("/me", authenticatejwt, async (req, res) => {
 
 router.post("/signup", async (req, res) => {
   // TODO: Add validation using zod to check if the user is not sending erroneous requests in req.body, publish it on npm, bring it as a type using z.infer in TS
-  const { username, password } = req.body;
+  const { username, password }: LoginRequest = req.body;
   const existingUser = await User.findOne({ username });
   if (existingUser) {
     res.status(400).json({ message: "User already exists" });
@@ -43,7 +48,7 @@ router.post("/signup", async (req, res) => {
 });
 
 router.post("/signin", async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password }: LoginRequest = req.body;
   const existingUser = await User.findOne({ username, password });
   if (!existingUser) {
     res.status(404).json({ message: "Invalid credentials" });

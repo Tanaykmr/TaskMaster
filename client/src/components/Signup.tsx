@@ -6,7 +6,7 @@ import TextField from '@mui/material/TextField';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 
-
+// TODO: pass url as a prop from App.tsx
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 if (!BASE_URL) {
 	console.error(
@@ -27,7 +27,7 @@ const Signup = () => {
 
 }
 
-function Welcome() {
+export function Welcome() {
 	return (
 		<div id="welcome" style={{ marginLeft: "80px", display: "flex", alignItems: "center", flexDirection: "column", height: "100vh" }}>
 			<Typography variant="h4" style={{ color: "white", marginTop: "50px", }}>Welcome to</Typography>
@@ -52,7 +52,6 @@ function SignupCard() {
 	const navigate = useNavigate();
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-	console.log("BASE_URL is: ", BASE_URL);
 
 	const handleSignup = () => {
 		axios.post(`${BASE_URL}/user/signup`, { username, password }).then((response) => {

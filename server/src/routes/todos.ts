@@ -15,11 +15,31 @@ if (!secret) {
   process.exit(1);
 }
 
+interface CreatedTodo {
+  title: string;
+  description: string;
+}
+interface TodoInterface extends CreatedTodo {
+  done: boolean;
+  ownerId: string;
+}
 
 //create, update, delete, complete, show all
 router.post("/create", authenticatejwt, (req, res) => {
   //TODO: add zod for todo body
-  const { title, description } = req.body;
+
+  const { title, description }: CreatedTodo = req.body;
+  const ownerId: string | undefined = req.headers.userId as string;
+  if (typeof ownerId === "undefined") {
+    res.status(403).json({ error: "Wrong data type of ownerId" });
+  } else {
+    const finalTodo: TodoInterface = {
+      title,
+      description,
+      done: false,
+      ownerId: ownerId || "001",
+    };
+  }
   const newTodo = new Todo({
     title,
     description,
@@ -39,8 +59,11 @@ router.post("/create", authenticatejwt, (req, res) => {
 
 router.get("/all", authenticatejwt, (req, res) => {
   Todo.find({ ownerId: req.headers.userId })
+    //code expects todos to be of type <TodoInterface[]>, but mongoDB's .find returns a "document". solution: map(convert) everydocument to a Todointerfave
+    //TODO: unable to do the above, need help
+    // .then((documents: Array<Document & TodoInterface>) => {
     .then((todos) => {
-      res.json(todos);
+      res.json({ todos });
     })
     .catch((error) => {
       console.log("unable to fetch todos: ", error);
