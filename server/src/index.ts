@@ -18,7 +18,6 @@ if (!url) {
   );
   process.exit(1);
 }
-console.log("url: " ,url);
 app.use(cors());
 app.use(express.json());
 app.use("/user", userRoutes);
