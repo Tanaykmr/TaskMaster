@@ -70,12 +70,13 @@ router.get("/all", authenticatejwt, (req, res) => {
 
 router.patch("/update/:todoId/done", authenticatejwt, (req, res) => {
     const todoId = req.params.todoId;
-    Todo.findOneAndUpdate({_id: todoId, ownerId: req.headers.userId}, {done: true}, {new: true})
+    const isDone:boolean = req.body.done;
+    Todo.findOneAndUpdate({_id: todoId, ownerId: req.headers.userId}, {done: isDone}, {new: true})
         .then((updatedTodo) => {
-            res.json({message: "Todo completed", updatedTodo});
+            res.json({message: "Todo status updated", updatedTodo});
         })
         .catch((error) => {
-            res.status(501).json({message: "Unable to complete todo", error});
+            res.status(501).json({message: "Unable to update todo status", error});
         });
 });
 
@@ -99,6 +100,7 @@ router.delete("/delete/:todoId", authenticatejwt, (req, res) => {
             if (result.deletedCount === 1) {
                 console.log("Successfully deleted one document.");
                 res.json({message: "deleted todo successfully", result});
+                //result contains "acknowledged": true, "deletedCount": 1
             } else {
                 console.log("No documents matched the query. Deleted 0 documents.");
                 res.sendStatus(204);
