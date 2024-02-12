@@ -35,7 +35,7 @@ function SigninCard() {
 		axios.post(`${BASE_URL}/user/signin`, { username, password }).then((response) => {
 			console.log("response is: ", response);
 			localStorage.setItem("authorization", response.data.token);
-			window.location.href = "https://youtube.com";
+			window.location.href = "/todolist";
 		}).catch((error) => {
 			console.error("Axios error:", error);
 			if (error.response) {
