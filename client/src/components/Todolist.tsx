@@ -110,11 +110,18 @@ function CreateTodoComponent(props) {
     </div>)
 }
 
+
 function TodoListComponent(props) {
+    const [isChecked, setIsChecked] = useState(false);
+
     return (<div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px"}}>
-        <Checkbox {...label} color="success"/>
+        <Checkbox {...label} color="success" onClick={() => {
+            console.log("hi")
+        }} onChange={(e) => {
+            setIsChecked(e.target.checked);
+        }}/>
         <Card style={{
-            background: "#6c57f2",
+            background: isChecked ? "green" : "orange",
             width: "200px",
             height: "30px",
             marginRight: "10px",
@@ -123,17 +130,24 @@ function TodoListComponent(props) {
             justifyContent: "center",
             alignItems: "center"
         }}>
+            {/*style={{ textDecoration : x.completed ? 'line-through' : 'none' }}*/}
             <Typography variant="subtitle1" align="center"
-                        style={{color: "white"}}>{props.description}</Typography>
+                        style={{
+                            color: isChecked ? "white" : "black", textDecoration: isChecked ? "line-through" : "none",
+                            fontFamily: "ManRope"
+                        }}>{props.description}
+            </Typography>
         </Card>
         <ThemeProvider theme={theme}>
             <Fab
-                style={{height: "40px", width: "40px"}}>
+                style={{height: "40px", width: "40px"}} onClick={() => {
+                let newTodoArray: TodoStyleInterface[] = props.todos.filter((todo: TodoStyleInterface) => todo._id !== props.id)
+                props.setTodos(newTodoArray);
+            }}>
                 <DeleteIcon sx={{color: 'primary.main',}} style={{height: "25px", width: "25px"}}/>
             </Fab>
         </ThemeProvider>
-
-    </div>);
+    </div>)
 }
 
 
