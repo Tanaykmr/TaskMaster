@@ -53,7 +53,7 @@ export function Welcome() {
                 }}/>
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Twitter_X.png/640px-Twitter_X.png"
                      style={{width: "69px"}} onClick={() => {
-                    window.location.href = "http://twitter.com/tanaykmr"
+                    window.location.href = "/todolist"
                 }}/>
             </div>
         </div>
