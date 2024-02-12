@@ -19,13 +19,14 @@ if (!BASE_URL) {
 const Signup = () => {
 
     return (
-        <div id="testing-div" style={{display: "flex", justifyContent: "space-between", marginTop: "40px"}}>
+        <div id="testing-div" style={{display: "flex", justifyContent: "space-between", marginTop: "10px"}}>
             <Welcome/>
             <SignupCard/>
         </div>
     );
 
 }
+
 
 export function Welcome() {
     return (
@@ -70,7 +71,7 @@ function SignupCard() {
             console.log("response is: ", response);
             localStorage.setItem("authorization", response.data.token);
             alert("Signed up successfully")
-            window.location.href = "https://youtube.com";
+            window.location.href = "/todolist";
         }).catch((error) => {
             console.error("Axios error:", error);
             if (error.response) {
