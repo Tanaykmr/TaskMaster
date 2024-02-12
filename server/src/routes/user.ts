@@ -23,7 +23,7 @@ interface UserInterface extends LoginRequest {
     _id?: string
 }
 
-const regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/;
+const regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#+])[A-Za-z\d@$!%*?&]+$/;
 // the above checks if the input string has at least one uppercase letter, one lowercase letter, one integer and one special symbol
 let CreateAccountProps = z.object({
     username: z.string().email(), password: z.string().min(8).refine(value => regex.test(value), {
