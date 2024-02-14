@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { Card, Fab, TextField, Typography } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 if (!BASE_URL) {
@@ -12,8 +13,6 @@ if (!BASE_URL) {
   );
   process.exit(1);
 }
-
-const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -61,6 +60,8 @@ const Todolist = () => {
       id="return-mother-div"
       style={{
         padding: "10px 20px",
+        margin: "auto",
+        marginTop: "20px",
         width: "fit-content",
         display: "flex",
         flexDirection: "column",
@@ -101,6 +102,7 @@ const Todolist = () => {
           />
         );
       })}
+      <LogoutComponent />
     </div>
   );
 };
@@ -180,10 +182,21 @@ function TodoListComponent(props) {
         checked={isChecked}
         color="success"
         onChange={async (e) => {
-            
-          console.log("payload: ",props.description," oldischecked: ",isChecked," now, e.target.checked = ",e.target.checked);
+          console.log(
+            "payload: ",
+            props.description,
+            " oldischecked: ",
+            isChecked,
+            " now, e.target.checked = ",
+            e.target.checked
+          );
           setIsChecked(e.target.checked);
-          console.log("payload: ",props.description," newischecked: ",isChecked);
+          console.log(
+            "payload: ",
+            props.description,
+            " newischecked: ",
+            isChecked
+          );
           await axios
             .patch(
               `${BASE_URL}/todos/update/${props.id}/done`,
@@ -267,4 +280,14 @@ function TodoListComponent(props) {
   );
 }
 
+function LogoutComponent() {
+  return (
+    <Fab onClick={() => {
+      localStorage.setItem("authorization", " ");
+      window.location.href = "/signin";
+    }}>
+      <LogoutIcon />
+    </Fab>
+  );
+}
 export default Todolist;
